@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ConnectWallet } from "@nfid/identitykit/react";
 import { useAuth } from "./StateManagement/useContext/useClient";
 import './index.scss';
+import LandingPage from "./landingpage";
 const ConnectBtn = ({ onClick }) => (
 
   <button
@@ -11,7 +12,9 @@ const ConnectBtn = ({ onClick }) => (
     <div className=" w-full h-full  rounded-xl flex items-center justify-center  ">
       Connect Wallet
     </div>
+    <LandingPage/>
   </button>
+
 );
 const App = () => {
   const { isAuthenticated,  principal } = useAuth();

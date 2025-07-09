@@ -13,12 +13,11 @@ import {
 import {
   IdentityKitAuthType,
   NFIDW,
-  Plug,
   InternetIdentity,
 } from "@nfid/identitykit";
 import "@nfid/identitykit/react/styles.css";
 
-const signers = [NFIDW, Plug, InternetIdentity];
+const signers = [NFIDW, InternetIdentity];
 const canisterID = import.meta.env.CANISTER_ID_IDENTITY_KIT_EXAMPLE_BACKEND;
 ReactDOM.createRoot(document.getElementById('root')).render(
   <IdentityKitProvider

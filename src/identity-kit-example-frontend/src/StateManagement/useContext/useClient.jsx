@@ -205,3 +205,29 @@ export const useAuth = () => useContext(AuthContext);
 
 
 
+
+
+export const createPost = async (text) => {
+  try {
+    const actor = createActor(canisterID);
+    const result = await actor.create_post(text);
+    console.log("Post created:", result);
+    return result;
+  } catch (e) {
+    console.error("Failed to create post:", e);
+    return null;
+  }
+};
+
+export const fetchPosts = async () => {
+  try {
+    const actor = createActor(canisterID);
+   const posts = await actor.get_posts();
+
+    console.log("Fetched posts:", posts);
+    return posts;
+  } catch (e) {
+    console.error("Failed to fetch posts:", e);
+    return [];
+  }
+};

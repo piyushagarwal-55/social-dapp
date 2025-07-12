@@ -1,3 +1,10 @@
+type Post = record {
+  id: nat64;
+  content: text;
+};
+
 service : {
-    "greet": (text) -> (text) query;
+  greet: (text) -> (text) query;
+  create_post: (text) -> (Post);
+  get_posts: () -> (vec Post) query;
 }

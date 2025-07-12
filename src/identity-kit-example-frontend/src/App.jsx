@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { ConnectWallet } from "@nfid/identitykit/react";
-import { useAuth } from "./StateManagement/useContext/useClient";
+import { useAuth, createPost, fetchPosts } from "./StateManagement/useContext/useClient";
 import "./styles/index.css";
 
 const ConnectBtn = ({ onClick }) => (
@@ -14,6 +14,16 @@ const ConnectBtn = ({ onClick }) => (
 );
 
 const App = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const loadPosts = async () => {
+      const data = await fetchPosts();
+      setPosts(data);
+    };
+    loadPosts();
+  }, []);
+
   const { isAuthenticated, principal } = useAuth();
   const [postText, setPostText] = useState("");
   const [charCount, setCharCount] = useState(0);
@@ -72,6 +82,15 @@ const App = () => {
             </span>
             <button
               className="bg-[#1d9bf0] px-5 py-2 text-white rounded-full font-semibold disabled:opacity-50"
+              onClick={async () => {
+                const result = await createPost(postText);
+                if (result) {
+                  const data = await fetchPosts();
+                  setPosts(data);
+                  setPostText("");
+                  setCharCount(0);
+                }
+              }}
               disabled={!isAuthenticated || postText.length === 0 || postText.length > 280}
             >
               Post
@@ -79,7 +98,16 @@ const App = () => {
           </div>
         </section>
         <section className="p-5">
-          <div className="text-[#71767b] text-center">Loading posts...</div>
+          <div className="text-[#71767b] text-center">
+            {posts.length === 0 ? "No posts yet." : ""}
+          </div>
+          <div className="space-y-4 mt-4">
+            {posts.map((post, idx) => (
+              <div key={idx} className="border border-[#333] p-4 rounded-lg bg-[#111]">
+                <div className="text-white text-sm">{post.content}</div>
+              </div>
+            ))}
+          </div>
         </section>
       </main>
     </div>

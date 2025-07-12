@@ -14,7 +14,17 @@
       ],
       "type": "assets",
       "workspace": "identity-kit-example-frontend"
-    }
+    },
+   "internet_identity": {
+  "type": "custom",
+  "candid": "/home/piyushagarwal_55/internet-identity/src/internet_identity/internet_identity.did",
+  "wasm": "/home/piyushagarwal_55/internet-identity/internet_identity.wasm"
+}
+
+
+
+
+
   },
   "defaults": {
     "build": {
